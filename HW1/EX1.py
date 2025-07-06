@@ -4,11 +4,11 @@ import sys
 logging.basicConfig(level=logging.ERROR, format='%(levelname)s: %(message)s', stream=sys.stdout )
 
 def ensure_grades(method):
-    def wrapper(self, *args, **kwargs):
+    def wrapper(self):
         if not self.grades:
             logging.error("Grades list is empty.")
             return ""
-        return method(self, *args, **kwargs)
+        return method(self)
     return wrapper
 
 
