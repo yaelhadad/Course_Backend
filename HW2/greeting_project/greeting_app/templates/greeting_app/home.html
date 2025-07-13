@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Greeting App - Home</title>
+    <link rel="stylesheet" href="{% static 'greeting_app/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Greeting App!</h1>
+
+    <p>To get a personalized greeting, enter your name below:</p>
+
+    <form action="/greet/" method="get">
+        <label for="name">Your name:</label>
+        <input type="text" id="name" name="name" required />
+        <button type="submit">Greet Me</button>
+    </form>
+
+    <hr>
+
+    <p>Or try visiting directly: <code>/greet/yourname/</code></p>
+    <p>Example: <a href="/greet/Yael/">/greet/Yael/</a></p>
+</body>
+</html>
