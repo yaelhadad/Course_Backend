@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books by Genre</title>
+    <link rel="stylesheet" href="{% static 'library/styles.css' %}">
+</head>
+<body>
+    <h1>Find Books by Genre</h1>
+
+    <form method="get" action="{% url 'books_by_genre' %}">
+        <label for="genre">Select a genre:</label>
+        <select name="genre" id="genre">
+            <option value="">-- Choose a genre --</option>
+            {% for genre in genres %}
+                <option value="{{ genre.name }}" {% if genre.name == request.GET.genre %}selected{% endif %}>
+                    {{ genre.name }}
+                </option>
+            {% empty %}
+                <option disabled>No genres found</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Books</button>
+    </form>
+
+    {% if selected_genre %}
+        <h2>Books in {{ selected_genre.name }}</h2>
+        {% if books %}
+            <ul>
+                {% for book in books %}
+                    <li>{{ book.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No books found in {{ selected_genre.name }}.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

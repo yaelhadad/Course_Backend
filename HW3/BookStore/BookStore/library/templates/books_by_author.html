@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books by Author</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Find Books by Author</h1>
+
+    <form method="get" action="{% url 'books_by_author' %}">
+        <label for="author">Select an author:</label>
+        <select name="author" id="author">
+            <option value="">-- Choose an author --</option>
+            {% for author in authors %}
+                <option value="{{ author.full_name }}"
+                    {% if author.full_name == request.GET.author %}selected{% endif %}>
+                    {{ author.full_name }}
+                </option>
+            {% empty %}
+                <option disabled>No authors found</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Show Books</button>
+    </form>
+
+    {% if selected_author %}
+        <h2>Books by {{ selected_author.full_name }}</h2>
+        {% if books %}
+            <ul>
+                {% for book in books %}
+                    <li>{{ book.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No books found for {{ selected_author.full_name }}.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

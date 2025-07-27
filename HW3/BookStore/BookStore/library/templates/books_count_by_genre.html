@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Count by Genre</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Number of Books by Genre</h1>
+    <ul>
+        {% if genre_stats %}
+            {% for genre in genre_stats %}
+                <li>
+                  {{ genre.name }}: {{ genre.book_count }}
+                  {% if genre.book_count == 1 %}book{% else %}books{% endif %}
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No genres found.</li>
+        {% endif %}
+    </ul>
+</body>
+</html>
